@@ -32,3 +32,22 @@ describe('favorite blog', ()=> {
         expect(result).toBe(listWithTwoBlogs[1]);
     });
 });
+
+describe('Most blogs', ()=> {
+    const listWithBlogs = [
+        {
+            author:'Ben',
+            likes:12
+        },{
+            author:'Ben',
+            likes:15
+        },{
+            author:'Not Ben',
+            likes:15
+        }];
+
+    test('Author has most blogs', () => {
+        const result = listHelper.mostBlogs(listWithBlogs);
+        expect(result).toEqual({author:'Ben', blogs:2});
+    });
+});
