@@ -51,3 +51,22 @@ describe('Most blogs', ()=> {
         expect(result).toEqual({author:'Ben', blogs:2});
     });
 });
+
+describe('Most likes', ()=> {
+    const listWithBlogs = [
+        {
+            author:'Ben',
+            likes:12
+        },{
+            author:'Ben',
+            likes:15
+        },{
+            author:'Not Ben',
+            likes:15
+        }];
+
+    test('Author has most likes', () => {
+        const result = listHelper.mostLikes(listWithBlogs);
+        expect(result).toEqual({author:'Ben', likes:(15+12)});
+    });
+});

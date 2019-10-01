@@ -10,9 +10,20 @@ const favoriteBlog = (blogs) => {
     return blogs.reduce((a, c) => c.likes > a.likes ? c : a);
 }
 
-const mostBlogs = (blogs) => {    
+const mostBlogs = (blogs) => {        
+    const {author, count} = most(blogs, x => 1);
+    return {author, blogs:count};
+}
+
+const mostLikes = (blogs) => {    
+    const {author, count} = most(blogs, x => x.likes);
+    return {author, likes:count};
+}
+
+const most = (blogs, tallyCounter) => {
     const tally = (acc, x) => {
-        acc[x.author] = acc[x.author] ? acc[x.author]+1 : 1;
+        const count = tallyCounter(x);
+        acc[x.author] = acc[x.author] ? acc[x.author]+count : count;
         return acc;
     }
 
@@ -20,8 +31,8 @@ const mostBlogs = (blogs) => {
 
     let best;
     for(const x in r){
-        const obj = { author:x, blogs:r[x] };;
-        best = best && best.blogs > obj.blogs ? best : obj;
+        const obj = { author:x, count:r[x] };
+        best = best && best.count > obj.count ? best : obj;
     }    
     return best;
 }
@@ -30,5 +41,6 @@ module.exports = {
     dummy,
     totalLikes,
     favoriteBlog,
-    mostBlogs
+    mostBlogs,
+    mostLikes
 }
