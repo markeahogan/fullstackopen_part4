@@ -20,4 +20,10 @@ blogsRouter.post('/', (req, res, next) => {
     .catch(e => next(e));
 });
 
+blogsRouter.delete('/:id', (req, res, next) => {
+    Blog.deleteOne({_id:req.params.id})
+    .then(r => res.status(204).send())
+    .catch(e => next(e));
+})
+
 module.exports = blogsRouter;

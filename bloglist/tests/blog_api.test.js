@@ -82,6 +82,16 @@ test('if the title and url properties are missing the backend responds with 400 
     .expect(400)
 })
 
+test('deleteing by id deletes the entry', async () => {
+    const blogs = await helper.getBlogs()
+
+    await api.delete(`/api/blogs/${blogs[0].id}`)
+    .expect(204)
+
+    const remainingBlogs = await helper.getBlogs();
+    expect(remainingBlogs.length).toBe(blogs.length-1);
+})
+
 afterAll(async () => {
   mongoose.connection.close()
 })
