@@ -92,6 +92,17 @@ test('deleteing by id deletes the entry', async () => {
     expect(remainingBlogs.length).toBe(blogs.length-1);
 })
 
+test('incrementing likes results in increment', async () => {
+    const blogs = await helper.getBlogs()
+
+    await api.put(`/api/blogs/${blogs[0].id}`)
+    .send({likes:blogs[0].likes+1})
+    .expect(201)
+
+    const remainingBlogs = await helper.getBlogs();
+    expect(remainingBlogs[0].likes).toBe(blogs[0].likes+1);
+})
+
 afterAll(async () => {
   mongoose.connection.close()
 })
