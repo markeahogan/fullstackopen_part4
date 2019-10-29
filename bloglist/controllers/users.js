@@ -16,7 +16,7 @@ router.post('/', async (req, res, next) => {
     const {name, username, password} = req.body;
     
     if (password.length < 3){
-        next();
+        res.status(400).json({error:"password must be at least 3 characters"});
         return;
     }
     
