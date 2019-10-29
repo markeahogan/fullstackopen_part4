@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 
 router.get('/', async (req, res, next) =>{
     try{
-        const result = await User.find({});
+        const result = await User.find({}).populate('blogs', {url:1, title:1, author:1});
         res.json(result);
     }
     catch(e){
