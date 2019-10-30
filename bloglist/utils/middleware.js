@@ -7,13 +7,14 @@ const requestLogger = (request, response, next) => {
   }
   
 const unknownEndpoint = (request, response) => {
-response.status(404).send({ error: 'unknown endpoint' })
+    response.status(404).send({ error: 'unknown endpoint' })
 }
 
-const tokenExtractor = async (req, res, next) => {
+const tokenExtractor = (req, res, next) => {
     const auth = req.get('authorization');
     if (auth && auth.toLowerCase().startsWith('bearer ')){
         req.token = auth.substring(7);
+        console.log('adding token', auth.substring(7));
     }
     next();
 };
